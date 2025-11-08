@@ -7,8 +7,16 @@
     'author': "Ton Nom",
     'website': "http://www.example.com",
     'license': "AGPL-3",
-    'depends': ['base'],
-    'data': [],
+    'depends': ['base', 'mail'],
+    'data': [
+        'security/marketplace_security.xml',
+        'security/ir.model.access.csv',
+        'views/vendor_views.xml',
+        'views/product_listing_views.xml',
+        'views/order_views.xml',
+        'views/menu_views.xml',
+    ],
     'installable': True,
     'application': True,
+    
 }

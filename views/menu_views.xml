@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu Items -->
+    <menuitem id="menu_marketplace_root"
+              name="Marketplace"
+              web_icon="odoo_marketplace,static/description/icon.png"
+              sequence="10"/>
+
+    <!-- Marketplace Orders Menu -->
+    <menuitem id="menu_marketplace_orders"
+              name="Orders"
+              parent="menu_marketplace_root"
+              action="action_market_order"
+              sequence="10"/>
+
+    <!-- Product Listings Menu -->
+    <menuitem id="menu_marketplace_listings"
+              name="Product Listings"
+              parent="menu_marketplace_root"
+              action="action_market_product_listing"
+              sequence="20"/>
+
+    <!-- Vendors Menu -->
+    <menuitem id="menu_marketplace_vendors"
+              name="Vendors"
+              parent="menu_marketplace_root"
+              action="action_market_vendor"
+              sequence="30"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_marketplace_config"
+              name="Configuration"
+              parent="menu_marketplace_root"
+              sequence="100"/>
+
+</odoo>

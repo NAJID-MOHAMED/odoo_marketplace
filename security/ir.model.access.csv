@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_market_vendor_manager,market.vendor manager,model_market_vendor,group_marketplace_manager,1,1,1,1
+access_market_vendor_user,market.vendor user,model_market_vendor,group_marketplace_user,1,0,0,0
+access_market_vendor_vendor,market.vendor vendor,model_market_vendor,group_marketplace_vendor,1,0,0,0
+
+access_market_product_listing_manager,market.product.listing manager,model_market_product_listing,group_marketplace_manager,1,1,1,1
+access_market_product_listing_user,market.product.listing user,model_market_product_listing,group_marketplace_user,1,0,0,0
+access_market_product_listing_vendor,market.product.listing vendor,model_market_product_listing,group_marketplace_vendor,1,1,1,1
+
+access_market_order_manager,market.order manager,model_market_order,group_marketplace_manager,1,1,1,1
+access_market_order_user,market.order user,model_market_order,group_marketplace_user,1,1,1,0
+access_market_order_vendor,market.order vendor,model_market_order,group_marketplace_vendor,1,0,0,0
+
+access_market_order_line_manager,market.order.line manager,model_market_order_line,group_marketplace_manager,1,1,1,1
+access_market_order_line_user,market.order.line user,model_market_order_line,group_marketplace_user,1,1,1,0
+access_market_order_line_vendor,market.order.line vendor,model_market_order_line,group_marketplace_vendor,1,0,0,0
