@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Vendor Summary Report Template -->
+        <template id="report_vendor_summary">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Vendor Summary Report</h2>
+                            
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <strong>Vendor Code:</strong> <span t-field="o.code"/><br/>
+                                    <strong>Vendor Name:</strong> <span t-field="o.name"/><br/>
+                                    <strong>Business Type:</strong> <span t-field="o.business_type"/><br/>
+                                    <strong>Email:</strong> <span t-field="o.email"/><br/>
+                                    <strong>Phone:</strong> <span t-field="o.phone"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Status:</strong> <span t-field="o.state"/><br/>
+                                    <strong>Registration Date:</strong> <span t-field="o.registration_date"/><br/>
+                                    <strong>Commission Rate:</strong> <span t-field="o.commission_rate"/>%<br/>
+                                    <strong>Average Rating:</strong> <span t-field="o.average_rating"/>
+                                </div>
+                            </div>
+
+                            <h3>Performance Metrics</h3>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Total Products:</strong></td>
+                                    <td><span t-field="o.product_count"/></td>
+                                    <td><strong>Total Orders:</strong></td>
+                                    <td><span t-field="o.order_count"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Sales:</strong></td>
+                                    <td><span t-field="o.total_sales" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                    <td><strong>Total Commission:</strong></td>
+                                    <td><span t-field="o.total_commission" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pending Payout:</strong></td>
+                                    <td><span t-field="o.pending_payout" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                    <td><strong>Paid Amount:</strong></td>
+                                    <td><span t-field="o.paid_amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                </tr>
+                            </table>
+
+                            <h3 class="mt32">Top Products</h3>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Category</th>
+                                        <th class="text-right">Sales</th>
+                                        <th class="text-right">Revenue</th>
+                                        <th class="text-right">Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.product_ids.sorted(key=lambda p: p.total_revenue, reverse=True)[:10]" t-as="product">
+                                        <tr>
+                                            <td><span t-field="product.name"/></td>
+                                            <td><span t-field="product.category_id.name"/></td>
+                                            <td class="text-right"><span t-field="product.sales_count"/></td>
+                                            <td class="text-right"><span t-field="product.total_revenue" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                            <td class="text-right"><span t-field="product.average_rating"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Order Document Report Template -->
+        <template id="report_order_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Order Confirmation</h2>
+                            
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <strong>Order Number:</strong> <span t-field="o.name"/><br/>
+                                    <strong>Order Date:</strong> <span t-field="o.order_date"/><br/>
+                                    <strong>Status:</strong> <span t-field="o.state"/><br/>
+                                    <strong>Payment Status:</strong> <span t-field="o.payment_status"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Customer:</strong><br/>
+                                    <span t-field="o.customer_id.name"/><br/>
+                                    <span t-field="o.customer_id.email"/><br/>
+                                    <span t-field="o.customer_id.phone"/>
+                                </div>
+                            </div>
+
+                            <div class="row mb32">
+                                <div class="col-6">
+                                    <strong>Vendor:</strong><br/>
+                                    <span t-field="o.vendor_id.name"/><br/>
+                                    <span t-field="o.vendor_id.email"/><br/>
+                                    <span t-field="o.vendor_id.phone"/>
+                                </div>
+                                <div class="col-6" t-if="o.shipping_address_id">
+                                    <strong>Shipping Address:</strong><br/>
+                                    <div t-field="o.shipping_address_id" 
+                                         t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                </div>
+                            </div>
+
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th class="text-right">Quantity</th>
+                                        <th class="text-right">Unit Price</th>
+                                        <th class="text-right">Discount</th>
+                                        <th class="text-right">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.order_line_ids" t-as="line">
+                                        <tr>
+                                            <td><span t-field="line.product_name"/></td>
+                                            <td class="text-right"><span t-field="line.quantity"/></td>
+                                            <td class="text-right">
+                                                <span t-field="line.price_unit" 
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                            <td class="text-right"><span t-field="line.discount"/>%</td>
+                                            <td class="text-right">
+                                                <span t-field="line.subtotal" 
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix">
+                                <div class="row">
+                                    <div class="col-6"/>
+                                    <div class="col-6">
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <td><strong>Subtotal:</strong></td>
+                                                <td class="text-right">
+                                                    <span t-field="o.amount_untaxed" 
+                                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Taxes:</strong></td>
+                                                <td class="text-right">
+                                                    <span t-field="o.amount_tax" 
+                                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Shipping:</strong></td>
+                                                <td class="text-right">
+                                                    <span t-field="o.shipping_cost" 
+                                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                            <tr class="border-black">
+                                                <td><strong>Total:</strong></td>
+                                                <td class="text-right">
+                                                    <span t-field="o.amount_total" 
+                                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="mt32" t-if="o.customer_note">
+                                <strong>Customer Note:</strong><br/>
+                                <span t-field="o.customer_note"/>
+                            </p>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Commission Statement Template -->
+        <template id="report_commission_statement">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Commission Statement</h2>
+                            
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <strong>Reference:</strong> <span t-field="o.name"/><br/>
+                                    <strong>Vendor:</strong> <span t-field="o.vendor_id.name"/><br/>
+                                    <strong>Vendor Code:</strong> <span t-field="o.vendor_id.code"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Order:</strong> <span t-field="o.order_id.name"/><br/>
+                                    <strong>Status:</strong> <span t-field="o.state"/><br/>
+                                    <strong>Payment Date:</strong> <span t-field="o.payment_date" t-if="o.payment_date"/>
+                                </div>
+                            </div>
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Order Amount:</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.order_amount" 
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Commission Rate:</strong></td>
+                                    <td class="text-right"><span t-field="o.commission_rate"/>%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Commission Amount:</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.commission_amount" 
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black">
+                                    <td><strong>Vendor Payout:</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.vendor_amount" 
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p class="mt32" t-if="o.payout_id">
+                                <strong>Included in Payout:</strong> <span t-field="o.payout_id.name"/>
+                            </p>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Payout Receipt Template -->
+        <template id="report_payout_receipt">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Payout Receipt</h2>
+                            
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <strong>Payout Reference:</strong> <span t-field="o.name"/><br/>
+                                    <strong>Vendor:</strong> <span t-field="o.vendor_id.name"/><br/>
+                                    <strong>Vendor Code:</strong> <span t-field="o.vendor_id.code"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Payout Date:</strong> <span t-field="o.payout_date"/><br/>
+                                    <strong>Payment Method:</strong> <span t-field="o.payment_method"/><br/>
+                                    <strong>Status:</strong> <span t-field="o.state"/>
+                                </div>
+                            </div>
+
+                            <h3>Commission Details</h3>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Order</th>
+                                        <th class="text-right">Order Amount</th>
+                                        <th class="text-right">Commission</th>
+                                        <th class="text-right">Vendor Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.commission_ids" t-as="commission">
+                                        <tr>
+                                            <td><span t-field="commission.name"/></td>
+                                            <td><span t-field="commission.order_id.name"/></td>
+                                            <td class="text-right">
+                                                <span t-field="commission.order_amount" 
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="commission.commission_amount" 
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="commission.vendor_amount" 
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix">
+                                <div class="row">
+                                    <div class="col-6"/>
+                                    <div class="col-6">
+                                        <table class="table table-sm">
+                                            <tr class="border-black">
+                                                <td><strong>Total Payout Amount:</strong></td>
+                                                <td class="text-right">
+                                                    <span t-field="o.amount" 
+                                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="mt32" t-if="o.notes">
+                                <strong>Notes:</strong><br/>
+                                <span t-field="o.notes"/>
+                            </p>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

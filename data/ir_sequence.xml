@@ -1,0 +1,20 @@
+<!-- data/ir_sequence.xml -->
+<odoo>
+    <data noupdate="1">
+        <!-- Order Sequence -->
+        <record id="seq_market_order" model="ir.sequence">
+            <field name="name">Marketplace Order</field>
+            <field name="prefix">MO</field>
+            <field name="padding">5</field>
+            <field name="code">market.order</field>
+        </record>
+
+        <!-- Vendor Sequence -->
+        <record id="seq_market_vendor" model="ir.sequence">
+            <field name="name">Marketplace Vendor</field>
+            <field name="prefix">VEND</field>
+            <field name="padding">5</field>
+            <field name="code">market.vendor</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Vendor Registration Email -->
+        <record id="email_template_vendor_registration" model="mail.template">
+            <field name="name">Marketplace: Vendor Registration Confirmation</field>
+            <field name="model_id" ref="model_marketplace_vendor"/>
+            <field name="subject">Welcome to {{ object.company_id.name }} Marketplace!</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #2c3e50;">Welcome to Our Marketplace!</h2>
+                    <p>Dear {{ object.name }},</p>
+                    <p>Thank you for registering as a vendor on our marketplace platform.</p>
+                    <p><strong>Your Vendor Code:</strong> {{ object.code }}</p>
+                    <p>Your registration is currently under review. We will notify you once your account is approved.</p>
+                    <p>If you have any questions, please don't hesitate to contact us.</p>
+                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                </div>
+            </field>
+        </record>
+
+        <!-- Vendor Approval Request Email -->
+        <record id="email_template_vendor_approval_request" model="mail.template">
+            <field name="name">Marketplace: Vendor Approval Request</field>
+            <field name="model_id" ref="model_marketplace_vendor"/>
+            <field name="subject">New Vendor Approval Required: {{ object.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.company_id.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif;">
+                    <h2>New Vendor Awaiting Approval</h2>
+                    <p><strong>Vendor Name:</strong> {{ object.name }}</p>
+                    <p><strong>Vendor Code:</strong> {{ object.code }}</p>
+                    <p><strong>Business Type:</strong> {{ object.business_type }}</p>
+                    <p><strong>Email:</strong> {{ object.email }}</p>
+                    <p><strong>Registration Date:</strong> {{ object.registration_date }}</p>
+                    <p>
+                        <a href="/web#id={{ object.id }}&amp;view_type=form&amp;model=marketplace.vendor" 
+                           style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                            Review Vendor
+                        </a>
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <!-- Vendor Approved Email -->
+        <record id="email_template_vendor_approved" model="mail.template">
+            <field name="name">Marketplace: Vendor Approved</field>
+            <field name="model_id" ref="model_marketplace_vendor"/>
+            <field name="subject">Your Vendor Account Has Been Approved!</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #4CAF50;">Congratulations! Your Account is Approved</h2>
+                    <p>Dear {{ object.name }},</p>
+                    <p>We're excited to inform you that your vendor account has been approved!</p>
+                    <p><strong>Vendor Code:</strong> {{ object.code }}</p>
+                    <p><strong>Commission Rate:</strong> {{ object.commission_rate }}%</p>
+                    <p>You can now:</p>
+                    <ul>
+                        <li>Add and manage your products</li>
+                        <li>View and process orders</li>
+                        <li>Track your sales and commissions</li>
+                        <li>Manage your vendor profile</li>
+                    </ul>
+                    <p>
+                        <a href="/my/vendor/{{ object.id }}" 
+                           style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                            Access Vendor Portal
+                        </a>
+                    </p>
+                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                </div>
+            </field>
+        </record>
+
+        <!-- Vendor Rejected Email -->
+        <record id="email_template_vendor_rejected" model="mail.template">
+            <field name="name">Marketplace: Vendor Rejected</field>
+            <field name="model_id" ref="model_marketplace_vendor"/>
+            <field name="subject">Vendor Registration Update</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif;">
+                    <h2>Vendor Registration Status</h2>
+                    <p>Dear {{ object.name }},</p>
+                    <p>Thank you for your interest in becoming a vendor on our marketplace.</p>
+                    <p>Unfortunately, we are unable to approve your registration at this time.</p>
+                    <p t-if="object.rejection_reason"><strong>Reason:</strong> {{ object.rejection_reason }}</p>
+                    <p>If you have any questions, please contact us.</p>
+                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                </div>
+            </field>
+        </record>
+
+        <!-- Order Confirmation Email -->
+        <record id="email_template_order_confirmation" model="mail.template">
+            <field name="name">Marketplace: Order Confirmation</field>
+            <field name="model_id" ref="model_marketplace_order"/>
+            <field name="subject">Order Confirmation - {{ object.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.customer_id.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #2c3e50;">Order Confirmation</h2>
+                    <p>Dear {{ object.customer_id.name }},</p>
+                    <p>Thank you for your order! Your order has been confirmed.</p>
+                    <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                        <p><strong>Order Number:</strong> {{ object.name }}</p>
+                        <p><strong>Order Date:</strong> {{ object.order_date }}</p>
+                        <p><strong>Vendor:</strong> {{ object.vendor_id.name }}</p>
+                        <p><strong>Total Amount:</strong> {{ formatLang(object.amount_total, currency_obj=object.currency_id) }}</p>
+                    </div>
+                    <h3>Order Items:</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color: #f5f5f5;">
+                                <th style="padding: 10px; text-align: left;">Product</th>
+                                <th style="padding: 10px; text-align: center;">Qty</th>
+                                <th style="padding: 10px; text-align: right;">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="object.order_line_ids" t-as="line">
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ line.product_name }}</td>
+                                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">{{ line.quantity }}</td>
+                                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">
+                                        {{ formatLang(line.subtotal, currency_obj=object.currency_id) }}
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 20px;">
+                        <a href="/my/orders/{{ object.id }}" 
+                           style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                            Track Your Order
+                        </a>
+                    </p>
+                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                </div>
+            </field>
+        </record>
+
+        <!-- Order Shipped Email -->
+        <record id="email_template_order_shipped" model="mail.template">
+            <field name="name">Marketplace: Order Shipped</field>
+            <field name="model_id" ref="model_marketplace_order"/>
+            <field name="subject">Your Order {{ object.name }} Has Been Shipped!</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.customer_id.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #2c3e50;">Your Order is On Its Way!</h2>
+                    <p>Dear {{ object.customer_id.name }},</p>
+                    <p>Great news! Your order has been shipped.</p>
+                    <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                        <p><strong>Order Number:</strong> {{ object.name }}</p>
+                        <p t-if="object.tracking_number"><strong>Tracking Number:</strong> {{ object.tracking_number }}</p>
+                        <p><strong>Shipping Method:</strong> {{ object.shipping_method }}</p>
+                    </div>
+                    <p>You can track your order using the link below:</p>
+                    <p>
+                        <a href="/my/orders/{{ object.id }}" 
+                           style="background-color: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                            Track Shipment
+                        </a>
+                    </p>
+                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Vendor Tree View -->
+        <record id="view_marketplace_vendor_tree" model="ir.ui.view">
+            <field name="name">marketplace.vendor.tree</field>
+            <field name="model">marketplace.vendor</field>
+            <field name="arch" type="xml">
+                <tree string="Vendors" decoration-success="state=='approved'" 
+                      decoration-danger="state=='rejected'" decoration-warning="state=='pending'">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="business_type"/>
+                    <field name="registration_date"/>
+                    <field name="product_count"/>
+                    <field name="order_count"/>
+                    <field name="total_sales" sum="Total Sales" widget="monetary"/>
+                    <field name="average_rating" widget="progressbar"/>
+                    <field name="state" widget="badge" 
+                           decoration-success="state=='approved'"
+                           decoration-warning="state=='pending'"
+                           decoration-danger="state=='rejected'"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vendor Form View -->
+        <record id="view_marketplace_vendor_form" model="ir.ui.view">
+            <field name="name">marketplace.vendor.form</field>
+            <field name="model">marketplace.vendor</field>
+            <field name="arch" type="xml">
+                <form string="Vendor">
+                    <header>
+                        <button name="action_submit_approval" string="Submit for Approval" 
+                                type="object" class="oe_highlight"
+                                invisible="state != 'draft'"/>
+                        <button name="action_approve" string="Approve" type="object" 
+                                class="oe_highlight"
+                                invisible="state != 'pending'"
+                                groups="marketplace.group_marketplace_manager"/>
+                        <button name="action_reject" string="Reject" type="object"
+                                invisible="state != 'pending'"
+                                groups="marketplace.group_marketplace_manager"/>
+                        <button name="action_suspend" string="Suspend" type="object"
+                                invisible="state != 'approved'"
+                                groups="marketplace.group_marketplace_manager"/>
+                        <button name="action_reactivate" string="Reactivate" type="object"
+                                invisible="state != 'suspended'"
+                                groups="marketplace.group_marketplace_manager"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,pending,approved"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_products" type="object" 
+                                    class="oe_stat_button" icon="fa-cubes">
+                                <field name="product_count" widget="statinfo" 
+                                       string="Products"/>
+                            </button>
+                            <button name="action_view_orders" type="object" 
+                                    class="oe_stat_button" icon="fa-shopping-cart">
+                                <field name="order_count" widget="statinfo" 
+                                       string="Orders"/>
+                            </button>
+                            <button name="action_view_commissions" type="object" 
+                                    class="oe_stat_button" icon="fa-money">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="total_commission" widget="monetary"/>
+                                    </span>
+                                    <span class="o_stat_text">Commission</span>
+                                </div>
+                            </button>
+                        </div>
+                        <field name="logo" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Vendor Name"/></h1>
+                            <h3><field name="code" readonly="1"/></h3>
+                        </div>
+                        <group>
+                            <group string="Basic Information">
+                                <field name="partner_id"/>
+                                <field name="user_id"/>
+                                <field name="business_type"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="website" widget="url"/>
+                            </group>
+                            <group string="Status & Dates">
+                                <field name="active"/>
+                                <field name="registration_date"/>
+                                <field name="approved_date" readonly="1"/>
+                                <field name="approved_by" readonly="1"/>
+                                <field name="average_rating" widget="progressbar"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Business Details">
+                                <field name="tax_id"/>
+                                <field name="registration_number"/>
+                            </group>
+                            <group string="Commission Settings">
+                                <field name="commission_type"/>
+                                <field name="commission_rate" 
+                                       invisible="commission_type != 'percentage'"/>
+                                <field name="fixed_commission" 
+                                       invisible="commission_type != 'fixed'"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <group string="Address">
+                            <field name="street" placeholder="Street..."/>
+                            <field name="city"/>
+                            <field name="state_id"/>
+                            <field name="zip"/>
+                            <field name="country_id"/>
+                        </group>
+                        <group string="Bank Details" groups="marketplace.group_marketplace_manager">
+                            <group>
+                                <field name="bank_name"/>
+                                <field name="bank_account_number"/>
+                            </group>
+                            <group>
+                                <field name="bank_account_name"/>
+                                <field name="bank_swift_code"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" widget="html"/>
+                            </page>
+                            <page string="Financial Summary">
+                                <group>
+                                    <group>
+                                        <field name="total_sales" widget="monetary"/>
+                                        <field name="total_commission" widget="monetary"/>
+                                    </group>
+                                    <group>
+                                        <field name="pending_payout" widget="monetary"/>
+                                        <field name="paid_amount" widget="monetary"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Notes">
+                                <field name="notes"/>
+                                <field name="rejection_reason" 
+                                       invisible="state != 'rejected'"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vendor Kanban View -->
+        <record id="view_marketplace_vendor_kanban" model="ir.ui.view">
+            <field name="name">marketplace.vendor.kanban</field>
+            <field name="model">marketplace.vendor</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="state"/>
+                    <field name="product_count"/>
+                    <field name="order_count"/>
+                    <field name="average_rating"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('marketplace.vendor', 'logo', record.id.raw_value)" 
+                                         alt="Vendor Logo" class="o_image_64_cover"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                    <div><field name="code"/></div>
+                                    <div class="o_kanban_tags_section">
+                                        <field name="state" widget="badge"/>
+                                    </div>
+                                    <ul>
+                                        <li><i class="fa fa-cubes"/> <field name="product_count"/> Products</li>
+                                        <li><i class="fa fa-shopping-cart"/> <field name="order_count"/> Orders</li>
+                                        <li><i class="fa fa-star"/> Rating: <field name="average_rating"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Vendor Search View -->
+        <record id="view_marketplace_vendor_search" model="ir.ui.view">
+            <field name="name">marketplace.vendor.search</field>
+            <field name="model">marketplace.vendor</field>
+            <field name="arch" type="xml">
+                <search string="Search Vendors">
+                    <field name="name" string="Vendor" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Pending Approval" name="pending" domain="[('state', '=', 'pending')]"/>
+                    <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
+                    <filter string="Suspended" name="suspended" domain="[('state', '=', 'suspended')]"/>
+                    <separator/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Registration Date" name="registration_date" date="registration_date"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Business Type" name="group_business_type" context="{'group_by': 'business_type'}"/>
+                        <filter string="Registration Date" name="group_registration_date" context="{'group_by': 'registration_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vendor Action -->
+        <record id="action_marketplace_vendor" model="ir.actions.act_window">
+            <field name="name">Vendors</field>
+            <field name="res_model">marketplace.vendor</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="view_marketplace_vendor_search"/>
+            <field name="context">{'search_default_approved': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new vendor
+                </p>
+                <p>
+                    Register vendors who will sell products on your marketplace.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,16 +1,26 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_market_vendor_manager,market.vendor manager,model_market_vendor,group_marketplace_manager,1,1,1,1
-access_market_vendor_user,market.vendor user,model_market_vendor,group_marketplace_user,1,0,0,0
-access_market_vendor_vendor,market.vendor vendor,model_market_vendor,group_marketplace_vendor,1,0,0,0
-
-access_market_product_listing_manager,market.product.listing manager,model_market_product_listing,group_marketplace_manager,1,1,1,1
-access_market_product_listing_user,market.product.listing user,model_market_product_listing,group_marketplace_user,1,0,0,0
-access_market_product_listing_vendor,market.product.listing vendor,model_market_product_listing,group_marketplace_vendor,1,1,1,1
-
-access_market_order_manager,market.order manager,model_market_order,group_marketplace_manager,1,1,1,1
-access_market_order_user,market.order user,model_market_order,group_marketplace_user,1,1,1,0
-access_market_order_vendor,market.order vendor,model_market_order,group_marketplace_vendor,1,0,0,0
-
-access_market_order_line_manager,market.order.line manager,model_market_order_line,group_marketplace_manager,1,1,1,1
-access_market_order_line_user,market.order.line user,model_market_order_line,group_marketplace_user,1,1,1,0
-access_market_order_line_vendor,market.order.line vendor,model_market_order_line,group_marketplace_vendor,1,0,0,0
+access_marketplace_vendor_user,marketplace.vendor.user,model_marketplace_vendor,group_marketplace_user,1,1,1,0
+access_marketplace_vendor_manager,marketplace.vendor.manager,model_marketplace_vendor,group_marketplace_manager,1,1,1,1
+access_marketplace_vendor_vendor,marketplace.vendor.vendor,model_marketplace_vendor,group_marketplace_vendor,1,1,0,0
+access_marketplace_product_user,marketplace.product.user,model_marketplace_product,group_marketplace_user,1,1,1,0
+access_marketplace_product_manager,marketplace.product.manager,model_marketplace_product,group_marketplace_manager,1,1,1,1
+access_marketplace_product_vendor,marketplace.product.vendor,model_marketplace_product,group_marketplace_vendor,1,1,1,0
+access_marketplace_product_customer,marketplace.product.customer,model_marketplace_product,group_marketplace_customer,1,0,0,0
+access_marketplace_category_user,marketplace.category.user,model_marketplace_category,group_marketplace_user,1,1,1,1
+access_marketplace_category_public,marketplace.category.public,model_marketplace_category,base.group_public,1,0,0,0
+access_marketplace_order_user,marketplace.order.user,model_marketplace_order,group_marketplace_user,1,1,1,0
+access_marketplace_order_manager,marketplace.order.manager,model_marketplace_order,group_marketplace_manager,1,1,1,1
+access_marketplace_order_vendor,marketplace.order.vendor,model_marketplace_order,group_marketplace_vendor,1,1,0,0
+access_marketplace_order_customer,marketplace.order.customer,model_marketplace_order,group_marketplace_customer,1,0,1,0
+access_marketplace_order_line_user,marketplace.order.line.user,model_marketplace_order_line,group_marketplace_user,1,1,1,1
+access_marketplace_order_line_vendor,marketplace.order.line.vendor,model_marketplace_order_line,group_marketplace_vendor,1,0,0,0
+access_marketplace_commission_user,marketplace.commission.user,model_marketplace_commission,group_marketplace_user,1,1,1,0
+access_marketplace_commission_manager,marketplace.commission.manager,model_marketplace_commission,group_marketplace_manager,1,1,1,1
+access_marketplace_commission_vendor,marketplace.commission.vendor,model_marketplace_commission,group_marketplace_vendor,1,0,0,0
+access_marketplace_payout_user,marketplace.payout.user,model_marketplace_payout,group_marketplace_user,1,1,1,0
+access_marketplace_payout_manager,marketplace.payout.manager,model_marketplace_payout,group_marketplace_manager,1,1,1,1
+access_marketplace_payout_vendor,marketplace.payout.vendor,model_marketplace_payout,group_marketplace_vendor,1,0,0,0
+access_marketplace_review_user,marketplace.review.user,model_marketplace_review,group_marketplace_user,1,1,1,1
+access_marketplace_review_customer,marketplace.review.customer,model_marketplace_review,group_marketplace_customer,1,1,1,0
+access_marketplace_review_public,marketplace.review.public,model_marketplace_review,base.group_public,1,0,0,0
+access_marketplace_product_tag_user,marketplace.product.tag.user,model_marketplace_product_tag,group_marketplace_user,1,1,1,1

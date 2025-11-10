@@ -1,0 +1,75 @@
+/* Marketplace Backend Styles */
+
+.o_marketplace_dashboard {
+    padding: 20px;
+}
+
+.o_dashboard_widget {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.o_dashboard_stat {
+    text-align: center;
+    padding: 20px;
+}
+
+.o_dashboard_stat_value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.o_dashboard_stat_label {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.o_marketplace_kanban_card {
+    transition: transform 0.2s;
+}
+
+.o_marketplace_kanban_card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.o_product_price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.o_vendor_badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.o_vendor_badge.approved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.o_vendor_badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* Stock Status Colors */
+.badge.in_stock {
+    background-color: #28a745;
+}
+
+.badge.low_stock {
+    background-color: #ffc107;
+}
+
+.badge.out_of_stock {
+    background-color: #dc3545;
+}

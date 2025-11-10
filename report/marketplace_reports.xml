@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Vendor Report -->
+        <record id="action_report_marketplace_vendor" model="ir.actions.report">
+            <field name="name">Vendor Summary</field>
+            <field name="model">marketplace.vendor</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">marketplace.report_vendor_summary</field>
+            <field name="report_file">marketplace.report_vendor_summary</field>
+            <field name="binding_model_id" ref="model_marketplace_vendor"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Order Report -->
+        <record id="action_report_marketplace_order" model="ir.actions.report">
+            <field name="name">Order Document</field>
+            <field name="model">marketplace.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">marketplace.report_order_document</field>
+            <field name="report_file">marketplace.report_order_document</field>
+            <field name="binding_model_id" ref="model_marketplace_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Commission Report -->
+        <record id="action_report_marketplace_commission" model="ir.actions.report">
+            <field name="name">Commission Statement</field>
+            <field name="model">marketplace.commission</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">marketplace.report_commission_statement</field>
+            <field name="report_file">marketplace.report_commission_statement</field>
+            <field name="binding_model_id" ref="model_marketplace_commission"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Payout Report -->
+        <record id="action_report_marketplace_payout" model="ir.actions.report">
+            <field name="name">Payout Receipt</field>
+            <field name="model">marketplace.payout</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">marketplace.report_payout_receipt</field>
+            <field name="report_file">marketplace.report_payout_receipt</field>
+            <field name="binding_model_id" ref="model_marketplace_payout"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
