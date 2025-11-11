@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<!-- Minimal demo data placeholder to avoid XMLSyntaxError during module load.
+			 Add demo records here if desired. -->
+	</data>
+</odoo>

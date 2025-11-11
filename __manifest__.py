@@ -73,12 +73,12 @@
     # ],
     'assets': {
         'web.assets_backend': [
-            'marketplace/static/src/css/marketplace_backend.css',
-            'marketplace/static/src/js/marketplace_dashboard.js',
+            'odoo_marketplace/static/src/css/marketplace_backend.css',
+            'odoo_marketplace/static/src/js/marketplace_dashboard.js',
         ],
         'web.assets_frontend': [
-            'marketplace/static/src/css/marketplace_portal.css',
-            'marketplace/static/src/js/marketplace_portal.js',
+            'odoo_marketplace/static/src/css/marketplace_portal.css',
+            'odoo_marketplace/static/src/js/marketplace_portal.js',
         ],
     },
     'images': ['static/description/banner.png'],

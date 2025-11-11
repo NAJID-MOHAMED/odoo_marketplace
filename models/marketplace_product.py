@@ -221,12 +221,21 @@ class MarketplaceProduct(models.Model):
 
     def write(self, vals):
         """Track state changes"""
-        old_state = self.state
+        # Handle multi-record writes safely and call state change handler per record
+        previous_states = {p.id: p.state for p in self}
         res = super(MarketplaceProduct, self).write(vals)
-        
-        if 'state' in vals and vals['state'] != old_state:
-            self._handle_state_change(old_state, vals['state'])
-        
+
+        if 'state' in vals:
+            # For each record, compare and call handler if changed
+            for product in self:
+                old_state = previous_states.get(product.id)
+                new_state = product.state
+                if old_state != new_state:
+                    try:
+                        product._handle_state_change(old_state, new_state)
+                    except Exception:
+                        _logger.exception('Error handling state change for product %s', product.id)
+
         return res
 
     def unlink(self):
@@ -402,7 +411,8 @@ class MarketplaceProduct(models.Model):
                 'standard_price': self.cost_price or 0.0,
                 'type': 'product' if self.product_type == 'physical' else 'service',
                 'categ_id': self.category_id.product_categ_id.id if self.category_id.product_categ_id else False,
-                'description': self.description,
+                # Use the standard sale description field on product.template
+                'description_sale': self.description or '',
                 'weight': self.weight,
             }
             product_tmpl = self.env['product.template'].create(vals)

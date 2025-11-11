@@ -222,6 +222,7 @@ class MarketplaceVendor(models.Model):
         ('code_unique', 'UNIQUE(code)', 'Vendor code must be unique!'),
         ('commission_rate_positive', 'CHECK(commission_rate >= 0)', 
          'Commission rate must be positive!'),
+        ('partner_unique', 'UNIQUE(partner_id)', 'A partner can only be linked to one vendor!'),
     ]
 
     @api.model
@@ -425,28 +426,28 @@ class MarketplaceVendor(models.Model):
 
     def _send_registration_email(self):
         """Send registration confirmation email"""
-        template = self.env.ref('marketplace.email_template_vendor_registration', 
+        template = self.env.ref('odoo_marketplace.email_template_vendor_registration',
                                 raise_if_not_found=False)
         if template:
             template.send_mail(self.id, force_send=True)
 
     def _send_approval_request_email(self):
         """Send approval request to admin"""
-        template = self.env.ref('marketplace.email_template_vendor_approval_request',
+        template = self.env.ref('odoo_marketplace.email_template_vendor_approval_request',
                                 raise_if_not_found=False)
         if template:
             template.send_mail(self.id, force_send=True)
 
     def _send_approval_notification(self):
         """Send approval notification to vendor"""
-        template = self.env.ref('marketplace.email_template_vendor_approved',
+        template = self.env.ref('odoo_marketplace.email_template_vendor_approved',
                                 raise_if_not_found=False)
         if template:
             template.send_mail(self.id, force_send=True)
 
     def _send_rejection_notification(self):
         """Send rejection notification to vendor"""
-        template = self.env.ref('marketplace.email_template_vendor_rejected',
+        template = self.env.ref('odoo_marketplace.email_template_vendor_rejected',
                                 raise_if_not_found=False)
         if template:
             template.send_mail(self.id, force_send=True)
@@ -457,7 +458,7 @@ class MarketplaceVendor(models.Model):
         if not self.user_id and self.partner_id:
             # Create portal user
             portal_group = self.env.ref('base.group_portal')
-            vendor_group = self.env.ref('marketplace.group_marketplace_vendor')
+            vendor_group = self.env.ref('odoo_marketplace.group_marketplace_vendor')
             
             user_vals = {
                 'login': self.email,

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- Mass Confirm Wizard Form -->
+		<record id="view_marketplace_mass_confirm_wizard_form" model="ir.ui.view">
+			<field name="name">marketplace.mass.confirm.wizard.form</field>
+			<field name="model">marketplace.mass.confirm.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Mass Confirm Orders">
+					<sheet>
+						<group>
+							<field name="order_ids" widget="many2many_tags"/>
+							<field name="check_stock"/>
+							<field name="send_emails"/>
+						</group>
+					</sheet>
+					<footer>
+						<button string="Confirm Orders" type="object" name="action_confirm_orders" class="btn-primary"/>
+						<button string="Cancel" class="btn-secondary" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

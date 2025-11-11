@@ -44,14 +44,14 @@ class MarketplacePortal(CustomerPortal):
         ], limit=1)
         
         if not vendor:
-            return request.render('marketplace.vendor_not_found')
+            return request.render('odoo_marketplace.vendor_not_found')
         
         values = {
             'vendor': vendor,
             'page_name': 'vendor_dashboard',
         }
         
-        return request.render('marketplace.portal_vendor_dashboard', values)
+        return request.render('odoo_marketplace.portal_vendor_dashboard', values)
 
     @http.route(['/my/vendor/products', '/my/vendor/products/page/<int:page>'], 
                 type='http', auth="user", website=True)
@@ -62,7 +62,7 @@ class MarketplacePortal(CustomerPortal):
         ], limit=1)
         
         if not vendor:
-            return request.render('marketplace.vendor_not_found')
+            return request.render('odoo_marketplace.vendor_not_found')
         
         Product = request.env['marketplace.product']
         domain = [('vendor_id', '=', vendor.id)]
@@ -93,7 +93,7 @@ class MarketplacePortal(CustomerPortal):
             'search': search,
         }
         
-        return request.render('marketplace.portal_vendor_products', values)
+        return request.render('odoo_marketplace.portal_vendor_products', values)
 
     @http.route(['/my/vendor/orders', '/my/vendor/orders/page/<int:page>'], 
                 type='http', auth="user", website=True)
@@ -104,7 +104,7 @@ class MarketplacePortal(CustomerPortal):
         ], limit=1)
         
         if not vendor:
-            return request.render('marketplace.vendor_not_found')
+            return request.render('odoo_marketplace.vendor_not_found')
         
         Order = request.env['marketplace.order']
         domain = [('vendor_id', '=', vendor.id)]
@@ -127,7 +127,7 @@ class MarketplacePortal(CustomerPortal):
             'page_name': 'vendor_orders',
         }
         
-        return request.render('marketplace.portal_vendor_orders', values)
+        return request.render('odoo_marketplace.portal_vendor_orders', values)
 
     # Customer Portal Routes
     @http.route(['/my/orders', '/my/orders/page/<int:page>'], 
@@ -156,7 +156,7 @@ class MarketplacePortal(CustomerPortal):
             'page_name': 'customer_orders',
         }
         
-        return request.render('marketplace.portal_customer_orders', values)
+        return request.render('odoo_marketplace.portal_customer_orders', values)
 
     @http.route(['/my/orders/<int:order_id>'], type='http', auth="user", website=True)
     def portal_order_page(self, order_id, access_token=None, **kw):
@@ -171,7 +171,7 @@ class MarketplacePortal(CustomerPortal):
             'page_name': 'order',
         }
         
-        return request.render('marketplace.portal_order_details', values)
+        return request.render('odoo_marketplace.portal_order_details', values)
 
 
 class MarketplaceAPI(http.Controller):

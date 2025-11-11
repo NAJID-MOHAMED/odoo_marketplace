@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- Marketplace Dashboard client action to open the OWL dashboard component -->
+		<record id="action_marketplace_dashboard" model="ir.actions.client">
+			<field name="name">Marketplace Dashboard</field>
+			<field name="tag">marketplace_dashboard</field>
+		</record>
+
+	</data>
+</odoo>
+

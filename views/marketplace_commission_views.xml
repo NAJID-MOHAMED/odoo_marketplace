@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- Commission Tree View -->
+		<record id="view_marketplace_commission_tree" model="ir.ui.view">
+			<field name="name">marketplace.commission.tree</field>
+			<field name="model">marketplace.commission</field>
+			<field name="arch" type="xml">
+				<tree string="Commissions">
+					<field name="name"/>
+					<field name="vendor_id"/>
+					<field name="commission_amount" widget="monetary"/>
+					<field name="state"/>
+					<field name="order_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Commission Form View -->
+		<record id="view_marketplace_commission_form" model="ir.ui.view">
+			<field name="name">marketplace.commission.form</field>
+			<field name="model">marketplace.commission</field>
+			<field name="arch" type="xml">
+				<form string="Commission">
+					<sheet>
+						<group>
+							<field name="name"/>
+							<field name="vendor_id"/>
+							<field name="commission_amount" widget="monetary"/>
+							<field name="state"/>
+							<field name="order_id"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Commission Search View -->
+		<record id="view_marketplace_commission_search" model="ir.ui.view">
+			<field name="name">marketplace.commission.search</field>
+			<field name="model">marketplace.commission</field>
+			<field name="arch" type="xml">
+				<search string="Search Commissions">
+					<field name="name"/>
+					<field name="vendor_id"/>
+					<filter string="Pending" name="pending" domain="[('state', '=', 'pending')]"/>
+					<filter string="Paid" name="paid" domain="[('state', '=', 'paid')]"/>
+				</search>
+			</field>
+		</record>
+
+		<!-- Commission Action -->
+		<record id="action_marketplace_commission" model="ir.actions.act_window">
+			<field name="name">Commissions</field>
+			<field name="res_model">marketplace.commission</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_marketplace_commission_search"/>
+		</record>
+
+		<!-- Payout Tree View -->
+		<record id="view_marketplace_payout_tree" model="ir.ui.view">
+			<field name="name">marketplace.payout.tree</field>
+			<field name="model">marketplace.payout</field>
+			<field name="arch" type="xml">
+				<tree string="Payouts">
+					<field name="name"/>
+					<field name="vendor_id"/>
+					<field name="amount" widget="monetary"/>
+					<field name="payout_date"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Payout Form View -->
+		<record id="view_marketplace_payout_form" model="ir.ui.view">
+			<field name="name">marketplace.payout.form</field>
+			<field name="model">marketplace.payout</field>
+			<field name="arch" type="xml">
+				<form string="Payout">
+					<sheet>
+						<group>
+							<field name="name"/>
+							<field name="vendor_id"/>
+							<field name="amount" widget="monetary"/>
+							<field name="payout_date"/>
+							<field name="payment_method"/>
+							<field name="state"/>
+						</group>
+						<group string="Commissions">
+							<field name="commission_ids" nolabel="1" widget="one2many">
+								<tree>
+									<field name="name"/>
+									<field name="commission_amount" widget="monetary"/>
+								</tree>
+							</field>
+						</group>
+						<field name="notes" placeholder="Notes..."/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Payout Action -->
+		<record id="action_marketplace_payout" model="ir.actions.act_window">
+			<field name="name">Payouts</field>
+			<field name="res_model">marketplace.payout</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</odoo>
+

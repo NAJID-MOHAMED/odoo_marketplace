@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="vendor_not_found" name="Vendor Not Found">
+		<t t-call="website.layout">
+			<div class="container mt16">
+				<h2>Vendor not found</h2>
+				<p>The requested vendor could not be found or you don't have access.</p>
+			</div>
+		</t>
+	</template>
+
+	<template id="portal_vendor_dashboard" name="Vendor Portal Dashboard">
+		<t t-call="website.layout">
+			<div class="container mt16 o_portal_vendor_dashboard">
+				<h2>Vendor Dashboard</h2>
+				<t t-if="vendor">
+					<p><strong><t t-esc="vendor.name"/></strong></p>
+					<p>Products: <t t-esc="vendor.product_count"/></p>
+					<p>Orders: <t t-esc="vendor.order_count"/></p>
+				</t>
+				<t t-else="">
+					<p>No vendor information available.</p>
+				</t>
+			</div>
+		</t>
+	</template>
+
+	<template id="portal_vendor_products" name="Vendor Products List">
+		<t t-call="website.layout">
+			<div class="container mt16">
+				<h2>Products for <t t-esc="vendor.name"/></h2>
+				<t t-if="products">
+					<ul>
+						<t t-foreach="products" t-as="p">
+							<li><t t-esc="p.name"/> — <t t-esc="p.list_price"/></li>
+						</t>
+					</ul>
+				</t>
+				<t t-else="">
+					<p>No products found.</p>
+				</t>
+			</div>
+		</t>
+	</template>
+
+	<template id="portal_vendor_orders" name="Vendor Orders List">
+		<t t-call="website.layout">
+			<div class="container mt16">
+				<h2>Orders for <t t-esc="vendor.name"/></h2>
+				<t t-if="orders">
+					<ul>
+						<t t-foreach="orders" t-as="o">
+							<li><a t-att-href="'/my/orders/' + str(o.id)"><t t-esc="o.name"/></a> — <t t-esc="o.amount_total"/></li>
+						</t>
+					</ul>
+				</t>
+				<t t-else="">
+					<p>No orders found.</p>
+				</t>
+			</div>
+		</t>
+	</template>
+
+</odoo>

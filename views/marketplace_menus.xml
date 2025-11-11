@@ -2,18 +2,18 @@
 <odoo>
     <data>
 
-        <!-- Main Menu -->
-        <menuitem id="menu_marketplace_root" name="Marketplace" 
-                  web_icon="marketplace,static/description/icon.png" 
-                  sequence="10"/>
+      <!-- Main Menu -->
+      <menuitem id="menu_marketplace_root" name="Marketplace" 
+              web_icon="odoo_marketplace,static/description/icon.png" 
+              sequence="10"/>
 
         <!-- Sales Menu -->
         <menuitem id="menu_marketplace_sales" name="Sales" 
                   parent="menu_marketplace_root" sequence="10"/>
         
-        <menuitem id="menu_marketplace_order" name="Orders" 
-                  parent="menu_marketplace_sales" 
-                  action="action_marketplace_order" sequence="10"/>
+    <menuitem id="menu_marketplace_order" name="Orders" 
+          parent="menu_marketplace_sales" 
+          action="odoo_marketplace.action_marketplace_order" sequence="10"/>
         
         <menuitem id="menu_marketplace_customer" name="Customers" 
                   parent="menu_marketplace_sales" 
@@ -23,47 +23,47 @@
         <menuitem id="menu_marketplace_products" name="Products" 
                   parent="menu_marketplace_root" sequence="20"/>
         
-        <menuitem id="menu_marketplace_product" name="Products" 
-                  parent="menu_marketplace_products" 
-                  action="action_marketplace_product" sequence="10"/>
+    <menuitem id="menu_marketplace_product" name="Products" 
+          parent="menu_marketplace_products" 
+          action="odoo_marketplace.action_marketplace_product" sequence="10"/>
         
-        <menuitem id="menu_marketplace_category" name="Categories" 
-                  parent="menu_marketplace_products" 
-                  action="action_marketplace_category" sequence="20"/>
+    <menuitem id="menu_marketplace_category" name="Categories" 
+          parent="menu_marketplace_products" 
+          action="odoo_marketplace.action_marketplace_category" sequence="20"/>
 
         <!-- Vendors Menu -->
         <menuitem id="menu_marketplace_vendors" name="Vendors" 
                   parent="menu_marketplace_root" sequence="30"/>
         
-        <menuitem id="menu_marketplace_vendor" name="Vendors" 
-                  parent="menu_marketplace_vendors" 
-                  action="action_marketplace_vendor" sequence="10"/>
+    <menuitem id="menu_marketplace_vendor" name="Vendors" 
+          parent="menu_marketplace_vendors" 
+          action="odoo_marketplace.action_marketplace_vendor" sequence="10"/>
         
-        <menuitem id="menu_marketplace_commission" name="Commissions" 
-                  parent="menu_marketplace_vendors" 
-                  action="action_marketplace_commission" sequence="20"/>
+    <menuitem id="menu_marketplace_commission" name="Commissions" 
+          parent="menu_marketplace_vendors" 
+          action="odoo_marketplace.action_marketplace_commission" sequence="20"/>
         
-        <menuitem id="menu_marketplace_payout" name="Payouts" 
-                  parent="menu_marketplace_vendors" 
-                  action="action_marketplace_payout" sequence="30"/>
+    <menuitem id="menu_marketplace_payout" name="Payouts" 
+          parent="menu_marketplace_vendors" 
+          action="odoo_marketplace.action_marketplace_payout" sequence="30"/>
 
         <!-- Reviews Menu -->
-        <menuitem id="menu_marketplace_reviews" name="Reviews" 
-                  parent="menu_marketplace_root" 
-                  action="action_marketplace_review" sequence="40"/>
+    <menuitem id="menu_marketplace_reviews" name="Reviews" 
+          parent="menu_marketplace_root" 
+          action="odoo_marketplace.action_marketplace_review" sequence="40"/>
 
         <!-- Reporting Menu -->
         <menuitem id="menu_marketplace_reporting" name="Reporting" 
                   parent="menu_marketplace_root" sequence="50"/>
         
-        <menuitem id="menu_marketplace_dashboard" name="Dashboard" 
-                  parent="menu_marketplace_reporting" 
-                  action="action_marketplace_dashboard" sequence="10"/>
+    <menuitem id="menu_marketplace_dashboard" name="Dashboard" 
+          parent="menu_marketplace_reporting" 
+          action="odoo_marketplace.action_marketplace_dashboard" sequence="10"/>
 
         <!-- Configuration Menu -->
-        <menuitem id="menu_marketplace_config" name="Configuration" 
-                  parent="menu_marketplace_root" sequence="100" 
-                  groups="marketplace.group_marketplace_manager"/>
+    <menuitem id="menu_marketplace_config" name="Configuration" 
+          parent="menu_marketplace_root" sequence="100" 
+          groups="odoo_marketplace.group_marketplace_manager"/>
 
     </data>
 </odoo>

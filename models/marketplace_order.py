@@ -188,13 +188,13 @@ class MarketplaceOrder(models.Model):
         pass
 
     def _send_confirmation_email(self):
-        template = self.env.ref('marketplace.email_template_order_confirmation', 
+        template = self.env.ref('odoo_marketplace.email_template_order_confirmation', 
                                 raise_if_not_found=False)
         if template:
             template.send_mail(self.id, force_send=True)
 
     def _send_shipping_email(self):
-        template = self.env.ref('marketplace.email_template_order_shipped',
+        template = self.env.ref('odoo_marketplace.email_template_order_shipped',
                                 raise_if_not_found=False)
         if template:
             template.send_mail(self.id, force_send=True)
@@ -237,6 +237,14 @@ class MarketplaceOrderLine(models.Model):
             line.subtotal = price * line.quantity
             # Tax calculation would go here
             line.tax_amount = 0.0
+
+    @api.constrains('quantity', 'price_unit')
+    def _check_line_values(self):
+        for line in self:
+            if line.quantity <= 0:
+                raise ValidationError(_('Quantity must be greater than 0 for order lines.'))
+            if line.price_unit < 0:
+                raise ValidationError(_('Unit price cannot be negative.'))
 
     @api.onchange('product_id')
     def _onchange_product_id(self):

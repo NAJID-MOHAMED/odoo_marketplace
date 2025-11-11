@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="portal_customer_orders" name="Customer Orders">
+		<t t-call="website.layout">
+			<div class="container mt16">
+				<h2>My Orders</h2>
+				<t t-if="orders">
+					<ul>
+						<t t-foreach="orders" t-as="o">
+							<li><a t-att-href="'/my/orders/' + str(o.id)"><t t-esc="o.name"/></a> — <t t-esc="o.amount_total"/></li>
+						</t>
+					</ul>
+				</t>
+				<t t-else="">
+					<p>You have no orders.</p>
+				</t>
+			</div>
+		</t>
+	</template>
+
+	<template id="portal_order_details" name="Order Details">
+		<t t-call="website.layout">
+			<div class="container mt16">
+				<h2>Order <t t-esc="order.name"/></h2>
+				<p>Order total: <t t-esc="order.amount_total"/></p>
+				<t t-if="order.order_line_ids">
+					<ul>
+						<t t-foreach="order.order_line_ids" t-as="l">
+							<li><t t-esc="l.product_name"/> — <t t-esc="l.quantity"/> x <t t-esc="l.price_unit"/></li>
+						</t>
+					</ul>
+				</t>
+			</div>
+		</t>
+	</template>
+
+</odoo>

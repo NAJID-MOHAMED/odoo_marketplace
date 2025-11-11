@@ -53,11 +53,12 @@ class MarketplaceCommission(models.Model):
     def _compute_commission(self):
         for comm in self:
             if comm.commission_type == 'percentage':
-                comm.commission_amount = comm.order_amount * (comm.commission_rate / 100)
+                comm.commission_amount = (comm.order_amount or 0.0) * (comm.commission_rate or 0.0) / 100.0
             else:
-                comm.commission_amount = comm.vendor_id.fixed_commission
-            
-            comm.vendor_amount = comm.order_amount - comm.commission_amount
+                # Use vendor fixed commission if set, otherwise 0.0
+                comm.commission_amount = comm.vendor_id.fixed_commission or 0.0
+
+            comm.vendor_amount = (comm.order_amount or 0.0) - (comm.commission_amount or 0.0)
 
     def action_confirm(self):
         self.write({'state': 'confirmed'})

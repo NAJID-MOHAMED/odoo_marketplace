@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- Review Tree View -->
+		<record id="view_marketplace_review_tree" model="ir.ui.view">
+			<field name="name">marketplace.review.tree</field>
+			<field name="model">marketplace.review</field>
+			<field name="arch" type="xml">
+				<tree string="Product Reviews">
+					<field name="name"/>
+					<field name="product_id"/>
+					<field name="customer_id"/>
+					<field name="rating"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Review Form View -->
+		<record id="view_marketplace_review_form" model="ir.ui.view">
+			<field name="name">marketplace.review.form</field>
+			<field name="model">marketplace.review</field>
+			<field name="arch" type="xml">
+				<form string="Review">
+					<sheet>
+						<group>
+							<field name="name"/>
+							<field name="customer_id"/>
+							<field name="product_id"/>
+							<field name="vendor_id"/>
+							<field name="order_id"/>
+							<field name="rating"/>
+							<field name="review_text"/>
+							<field name="helpful_count"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Review Action -->
+		<record id="action_marketplace_review" model="ir.actions.act_window">
+			<field name="name">Reviews</field>
+			<field name="res_model">marketplace.review</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</odoo>
+

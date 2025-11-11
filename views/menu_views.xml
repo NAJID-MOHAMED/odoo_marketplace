@@ -10,21 +10,21 @@
     <menuitem id="menu_marketplace_orders"
               name="Orders"
               parent="menu_marketplace_root"
-              action="action_market_order"
+              action="odoo_marketplace.action_marketplace_order"
               sequence="10"/>
 
     <!-- Product Listings Menu -->
     <menuitem id="menu_marketplace_listings"
               name="Product Listings"
               parent="menu_marketplace_root"
-              action="action_market_product_listing"
+              action="odoo_marketplace.action_marketplace_product"
               sequence="20"/>
 
     <!-- Vendors Menu -->
     <menuitem id="menu_marketplace_vendors"
               name="Vendors"
               parent="menu_marketplace_root"
-              action="action_market_vendor"
+              action="odoo_marketplace.action_marketplace_vendor"
               sequence="30"/>
 
     <!-- Configuration Menu -->
