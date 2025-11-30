@@ -6,8 +6,8 @@
         <record id="email_template_vendor_registration" model="mail.template">
             <field name="name">Marketplace: Vendor Registration Confirmation</field>
             <field name="model_id" ref="model_marketplace_vendor"/>
-            <field name="subject">Welcome to {{ object.company_id.name }} Marketplace!</field>
-            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="subject">Welcome to {{ object.partner_id.name }} Marketplace!</field>
+            <field name="email_from">{{ (object.partner_id.email or user.email) }}</field>
             <field name="email_to">{{ object.email }}</field>
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -17,7 +17,7 @@
                     <p><strong>Your Vendor Code:</strong> {{ object.code }}</p>
                     <p>Your registration is currently under review. We will notify you once your account is approved.</p>
                     <p>If you have any questions, please don't hesitate to contact us.</p>
-                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                    <p>Best regards,<br/>{{ object.partner_id.name }} Team</p>
                 </div>
             </field>
         </record>
@@ -27,8 +27,8 @@
             <field name="name">Marketplace: Vendor Approval Request</field>
             <field name="model_id" ref="model_marketplace_vendor"/>
             <field name="subject">New Vendor Approval Required: {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
-            <field name="email_to">{{ object.company_id.email }}</field>
+            <field name="email_from">{{ (object.partner_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif;">
                     <h2>New Vendor Awaiting Approval</h2>
@@ -52,7 +52,7 @@
             <field name="name">Marketplace: Vendor Approved</field>
             <field name="model_id" ref="model_marketplace_vendor"/>
             <field name="subject">Your Vendor Account Has Been Approved!</field>
-            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_from">{{ (object.partner_id.email or user.email) }}</field>
             <field name="email_to">{{ object.email }}</field>
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -74,7 +74,7 @@
                             Access Vendor Portal
                         </a>
                     </p>
-                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                    <p>Best regards,<br/>{{ object.partner_id.name }} Team</p>
                 </div>
             </field>
         </record>
@@ -84,7 +84,7 @@
             <field name="name">Marketplace: Vendor Rejected</field>
             <field name="model_id" ref="model_marketplace_vendor"/>
             <field name="subject">Vendor Registration Update</field>
-            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_from">{{ (object.partner_id.email or user.email) }}</field>
             <field name="email_to">{{ object.email }}</field>
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif;">
@@ -94,7 +94,7 @@
                     <p>Unfortunately, we are unable to approve your registration at this time.</p>
                     <p t-if="object.rejection_reason"><strong>Reason:</strong> {{ object.rejection_reason }}</p>
                     <p>If you have any questions, please contact us.</p>
-                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                    <p>Best regards,<br/>{{ object.partner_id.name }} Team</p>
                 </div>
             </field>
         </record>
@@ -104,7 +104,7 @@
             <field name="name">Marketplace: Order Confirmation</field>
             <field name="model_id" ref="model_marketplace_order"/>
             <field name="subject">Order Confirmation - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_from">{{ (object.partner_id.email or user.email) }}</field>
             <field name="email_to">{{ object.customer_id.email }}</field>
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -144,7 +144,7 @@
                             Track Your Order
                         </a>
                     </p>
-                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                    <p>Best regards,<br/>{{ object.partner_id.name }} Team</p>
                 </div>
             </field>
         </record>
@@ -154,7 +154,7 @@
             <field name="name">Marketplace: Order Shipped</field>
             <field name="model_id" ref="model_marketplace_order"/>
             <field name="subject">Your Order {{ object.name }} Has Been Shipped!</field>
-            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_from">{{ (object.partner_id.email or user.email) }}</field>
             <field name="email_to">{{ object.customer_id.email }}</field>
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -173,7 +173,7 @@
                             Track Shipment
                         </a>
                     </p>
-                    <p>Best regards,<br/>{{ object.company_id.name }} Team</p>
+                    <p>Best regards,<br/>{{ object.partner_id.name }} Team</p>
                 </div>
             </field>
         </record>
